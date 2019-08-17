@@ -1,0 +1,268 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Quizzer</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body onload="validateNewUser()">
+    <header>
+      <nav class="brand">
+        <h1>Welcome to Quizzer</h1>
+      </nav>
+    </header>
+    <div class="currentScore">Your score: <br/> <span id="displayScore">0</span></div>
+    <div class="currentScore" id="high">Your Highscore: <br/> <span id="displayHighScore">0</span></div>
+    <div class="Questions-container">
+      <form action="">
+        <div class="card">
+          <div class="card-title">
+            <h4 data-question>Q1. What is the capital of Nigeria?</h4>
+          </div>
+          <div class="options">
+            <ul>
+              <li>
+                <input type="radio" name="Q1" class="Options" />
+                <label for="Q1">FCT</label>
+              </li>
+              <li>
+                <input type="radio" name="Q1" class="Options" />
+                <label for="Q1">Lagos</label>
+              </li>
+              <li>
+                <input type="radio" name="Q1" class="Options" />
+                <label for="Q1">Rivers</label>
+              </li>
+              <li>
+                <input type="radio" name="Q1" class="Options" />
+                <label for="Q1">Cotonou</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <h4 data-question>Q2. What continent is Nicaragua?</h4>
+          </div>
+          <div class="options">
+            <ul>
+              <li>
+                <input type="radio" name="Q2" class="Options" />
+                <label for="Q2">America</label>
+              </li>
+              <li>
+                <input type="radio" name="Q2" class="Options" />
+                <label for="Q2">Africa</label>
+              </li>
+              <li>
+                <input type="radio" name="Q2" class="Options" />
+                <label for="Q2">Europe</label>
+              </li>
+              <li>
+                <input type="radio" name="Q2" class="Options" />
+                <label for="Q2">Australia</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <h4 data-question>Q3. Who was the first black woman to fly solo across the atlantic?</h4>
+          </div>
+          <div class="options">
+            <ul>
+              <li>
+                <input type="radio" name="Q3" class="Options" />
+                <label for="Q3">Rosa Parks</label>
+              </li>
+              <li>
+                <input type="radio" name="Q3" class="Options" />
+                <label for="Q3">Kimberly Anyandike</label>
+              </li>
+              <li>
+                <input type="radio" name="Q3" class="Options" />
+                <label for="Q3">Chinwe Osoegu</label>
+              </li>
+              <li>
+                <input type="radio" name="Q3" class="Options" />
+                <label for="Q3">Lisa Michaels</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+              <h4 data-question>Q4. What is a Macaw?</h4></div>
+          <div class="options">
+            <ul>
+              <li>
+                <input type="radio" name="Q4" class="Options" />
+                <label for="Q4">A Bird</label>
+              </li>
+              <li>
+                <input type="radio" name="Q4" class="Options" />
+                <label for="Q4">A pub in medieval Europe</label>
+              </li>
+              <li>
+                <input type="radio" name="Q4" class="Options" />
+                <label for="Q4">A class of Luxury Yatchs</label>
+              </li>
+              <li>
+                <input type="radio" name="Q4" class="Options" />
+                <label for="Q4">A strain of Yeast</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+              <h4 data-question>Q5. What are tectonic plates?</h4></div>
+          <div class="options">
+            <ul>
+              <li>
+                <input type="radio" name="Q5" class="Options" />
+                <label for="Q5">China glassware</label>
+              </li>
+              <li>
+                <input type="radio" name="Q5" class="Options" />
+                <label for="Q5">Chunks of earth crust</label>
+              </li>
+              <li>
+                <input type="radio" name="Q5" class="Options" />
+                <label for="Q5">A type of studio reverb effect generator</label>
+              </li>
+              <li>
+                <input type="radio" name="Q5" class="Options" />
+                <label for="Q5">Lekki toll gate pass</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <h4 data-question>Q6. What is the dive speed of a falcon?</h4>
+          </div>
+          <div class="options">
+            <ul>
+              <li>
+                <input type="radio" name="Q6" class="Options" />
+                <label for="Q6">220mph</label>
+              </li>
+              <li>
+                <input type="radio" name="Q6" class="Options" />
+                <label for="Q6">240mph</label>
+              </li>
+              <li>
+                <input type="radio" name="Q6" class="Options" />
+                <label for="Q6">260mph</label>
+              </li>
+              <li>
+                <input type="radio" name="Q6" class="Options" />
+                <label for="Q6">Falcons do not dive</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+              <h4 data-question>Q7. Why class of food is rice?</h4></div>
+          <div class="options">
+            <ul>
+              <li>
+                <input type="radio" name="Q7" class="Options" />
+                <label for="Q7">Vitamin</label>
+              </li>
+              <li>
+                <input type="radio" name="Q7" class="Options" />
+                <label for="Q7">Carbohydrate</label>
+              </li>
+              <li>
+                <input type="radio" name="Q7" class="Options" />
+                <label for="Q7">Fruit</label>
+              </li>
+              <li>
+                <input type="radio" name="Q7" class="Options" />
+                <label for="Q7">None of the above</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+              <h4 data-question>Q8. Who is Kurupt?</h4></div>
+          <div class="options">
+            <ul>
+              <li>
+                <input type="radio" name="Q8" class="Options" />
+                <label for="Q8">Rapper</label>
+              </li>
+              <li>
+                <input type="radio" name="Q8" class="Options" />
+                <label for="Q8">Politician</label>
+              </li>
+              <li>
+                <input type="radio" name="Q8" class="Options" />
+                <label for="Q8">World Billiards Champion</label>
+              </li>
+              <li>
+                <input type="radio" name="Q8" class="Options" />
+                <label for="Q8">Krip</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+              <h4 data-question>Q9. Where did Mansa Musa rule?</h4></div>
+          <div class="options">
+            <ul>
+              <li>
+                <input type="radio" name="Q9" class="Options" />
+                <label for="Q9">Mali</label>
+              </li>
+              <li>
+                <input type="radio" name="Q9" class="Options" />
+                <label for="Q9">Guinea</label>
+              </li>
+              <li>
+                <input type="radio" name="Q9" class="Options" />
+                <label for="Q9">Egypt</label>
+              </li>
+              <li>
+                <input type="radio" name="Q9" class="Options"/>
+                <label for="Q9">Algeria</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+              <h4 data-question>Q10. Who is the Awujale?</h4></div>
+          <div class="options">
+            <ul>
+              <li>
+                <input type="radio" name=Q10" class="Options" />
+                <label for="Q10">King of Benin</label>
+              </li>
+              <li>
+                <input type="radio" name=Q10" class="Options" />
+                <label for=""Q10">King of Egbaland</label>
+              </li>
+              <li>
+                <input type="radio" name=Q10" class="Options">
+                <label for="Q10">King of Ojodu</label>
+              </li>
+              <li>
+                <input type="radio" name=Q10" class="Options" />
+                <label for="Q10">King Kong's nickname</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+       <div class="button-container"><button type="submit" id="submitBtn">Submit</button></div> 
+      </form>
+    </div>
+  </body>
+      <script src="index.js"></script>
+</html>

@@ -1,0 +1,87 @@
+body {
+  background: #eee;
+}
+
+header {
+  width: 700px;
+  margin: 0 auto;
+  border: 1px solid #288bb3;
+  padding: 15px;
+  box-shadow: 1px 1px 5px black;
+}
+header h1 {
+  margin: 0 auto;
+  width: 210px;
+  color: #2859b3;
+}
+.currentScore {
+  font-size: 20px;
+  color: blue;
+  position: absolute;
+  top: 20;
+  right: 100;
+  height: 100px;
+  width: 100px;
+  text-align: center;
+}
+#high {
+  top: 100;
+}
+#displayScore {
+  font-size: 40px;
+}
+#displayHighScore {
+  font-size: 40px;
+}
+
+.Questions-container {
+  margin-top: 30px;
+}
+
+.options ul {
+  list-style: none;
+  width: 220px;
+  margin: 0 auto;
+}
+.card {
+  border: 1px solid #288bb3;
+  margin-bottom: 15px !important;
+  padding: 15px;
+  width: 500px;
+  margin: 0 auto;
+  transition: width 1s, box-shadow 1s;
+}
+
+.card:hover {
+  width: 700px;
+  box-shadow: 1px 1px 5px black;
+}
+.card-title {
+  margin: 0 auto;
+  width: 400px;
+  text-align: center;
+}
+.button-container {
+  margin: 0 auto;
+  width: 500px;
+  padding: 15px;
+  transition: width 1s;
+}
+.button-container:hover {
+  width: 700px;
+  cursor: pointer;
+}
+button {
+  width: 100%;
+  padding: 15px;
+  color: white;
+  background: #288bb3;
+  border: none;
+  height: 100px;
+  border-radius: 5px;
+  opacity: 0.8;
+}
+button:hover {
+  opacity: 1;
+  cursor: pointer;
+}
