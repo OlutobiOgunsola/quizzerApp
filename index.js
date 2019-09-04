@@ -106,20 +106,6 @@ const questionsObject = {
   ]
 };
 
-const getClientAnswers = () => {
-  // var radios = Array.from(document.querySelectorAll("li"));
-  // radios.forEach(li => {
-  //   if (li.children[0].checked) {
-  //     clientAnswersArray.push(li.children[1].innerHTML);
-  //   }
-  // });
-  // if (clientAnswersArray.length === 0) {
-  //   return console.log("Error: You must answer at least 1 question");
-  // } else {
-  //   return clientAnswersArray;
-  // }
-};
-
 const setScores = score => {
   var date = new Date();
   var scores = JSON.parse(localStorage.getItem("quizzer_user_highscore"));
@@ -291,9 +277,9 @@ const switchPage = () => {
   }
 };
 
-const numberOfQuestions = 11;
-const questionsFetched = JSON.parse(localStorage.getItem("quizzer_questions"));
-
+const numberOfQuestions = 4;
+const questionsFetched = JSON.parse(localStorage.getItem("quizzer_questions"))
+  .questions;
 const questionsBag = [];
 //select 10 random questions
 const getQuestions = () => {
@@ -301,14 +287,14 @@ const getQuestions = () => {
   //get random questions indices
   while (questionNumbersArray.length < numberOfQuestions) {
     let randomIndex = Math.floor(Math.random() * questionsFetched.length);
+    // we don't want the same questions twice
     if (questionNumbersArray.indexOf(randomIndex) > -1) {
       //do nothing
     } else {
       questionNumbersArray.push(randomIndex);
     }
   }
-
-  //select questions that match random indices
+  //   //select questions that match random indices
   for (let i = 0; i < questionNumbersArray.length; i++) {
     questionsBag.push(questionsFetched[questionNumbersArray[i]]);
   }
