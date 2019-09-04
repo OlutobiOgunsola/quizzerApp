@@ -1,4 +1,7 @@
 var score = 0;
+const questionBox = document.querySelector("#question-box");
+let clientAnswersArray = [];
+let selectedQuestionsArray = [];
 const correctAnswers = [
   "FCT",
   "America",
@@ -12,19 +15,109 @@ const correctAnswers = [
   "King of Egbaland"
 ];
 
-const getClientAnswers = () => {
-  const clientAnswersArray = [];
-  var radios = Array.from(document.querySelectorAll("li"));
-  radios.forEach(li => {
-    if (li.children[0].checked) {
-      clientAnswersArray.push(li.children[1].innerHTML);
+// Store all questions in array object
+const questionsObject = {
+  questions: [
+    {
+      id: 0,
+      title: "What is the capital of Nigeria?",
+      options: ["FCT", "Lagos", "Rivers", "Kano"],
+      answer: "FCT"
+    },
+    {
+      id: 1,
+      title: "What continent is Nicaragua on?",
+      options: ["America", "Africa", "Australia", "Europe"],
+      answer: "America"
+    },
+    {
+      id: 2,
+      title: "Who was the first black woman to fly solo across the atlantic?",
+      options: [
+        "Rosa Parks",
+        "Kimberly Anyandike",
+        "Angelique Kidjo",
+        "Jennifer Lopez"
+      ],
+      answer: "Kimberly Anyandike"
+    },
+    {
+      id: 3,
+      title: "What is a Macaw?",
+      options: [
+        "A bird",
+        "A monkey",
+        "A 19th century slave",
+        "A native of Maldives"
+      ],
+      answer: "A bird"
+    },
+    {
+      id: 4,
+      title: "What are tectonic plates?",
+      options: [
+        "Earth crust",
+        "Fancy china plates",
+        "Reverb plates",
+        "None of the above"
+      ],
+      answer: "Earth crust"
+    },
+    {
+      id: 5,
+      title: "What is a falcons dive speed?",
+      options: ["220mph", "230mph", "240mph", "250mph"],
+      answer: "220mph"
+    },
+    {
+      id: 6,
+      title: "What class of food is rice?",
+      options: ["Carbohydrate", "Protein", "Minerals", "Vitamins"],
+      answer: "Carbohydrate"
+    },
+    {
+      id: 7,
+      title: "Who is Kurupt?",
+      options: [
+        "A rapper",
+        "A politician",
+        "A software developer",
+        "A footballer"
+      ],
+      answer: "A rapper"
+    },
+    {
+      id: 8,
+      title: "Where did Mansa Musa rule?",
+      options: ["Mali", "Gabon", "Ethiopia", "Luxemburg"],
+      answer: "Mali"
+    },
+    {
+      id: 9,
+      title: "Who is the Awujale",
+      options: [
+        "King of Benin",
+        "King of Egbaland",
+        "King of Ife",
+        "Sultan of Sokoto"
+      ],
+      answer: "King of Egbaland"
     }
-  });
-  if (clientAnswersArray.length === 0) {
-    return console.log("Error: You must answer at least 1 question");
-  } else {
-    return clientAnswersArray;
-  }
+  ]
+};
+
+const getClientAnswers = () => {
+  // var radios = Array.from(document.querySelectorAll("li"));
+  // radios.forEach(li => {
+  //   if (li.children[0].checked) {
+  //     clientAnswersArray.push(li.children[1].innerHTML);
+  //   }
+  // });
+  // if (clientAnswersArray.length === 0) {
+  //   return console.log("Error: You must answer at least 1 question");
+  // } else {
+  //   return clientAnswersArray;
+  // }
 };
 
 const setScores = score => {
@@ -35,7 +128,6 @@ const setScores = score => {
   if (scores) {
     scores[JSON.stringify(currentDate)] = score;
     localStorage.setItem("quizzer_user_highscore", JSON.stringify(scores));
-    console.log(localStorage);
   } else {
     const scores = {};
     scores[JSON.stringify(currentDate)] = score;
@@ -103,7 +195,8 @@ const validateNewUser = () => {
   const scorePage = document.querySelector("#scoresPage");
   document.querySelector(".Next").textContent = "Show Scores";
   scorePage.style.display = "none";
-
+  const enterQuestionsPage = document.querySelector("#enter-questionPage");
+  enterQuestionsPage.style.display = "none";
   //show quizPage
   const quizPage = document.querySelector("#quizPage");
   quizPage.style.display = "block";
@@ -114,11 +207,23 @@ const validateNewUser = () => {
   var userId = new Date();
   // console.log(userId.getTime());
   if (!oldUser) {
+    // initialize answers array to []
+    clientAnswersArray = [];
+    // initialize selected questions array to []
+    selectedQuestionsArray = [];
+
     registerUser();
     localStorage.setItem("quizzer_user_highscore", JSON.stringify(highScore));
     // console.log(localStorage);
     document.querySelector("#displayHighScore").textContent = 0;
+
+    //set questions into localStorage
+    localStorage.setItem("quizzer_questions", JSON.stringify(questionsObject));
   } else {
+    // initialize answers array to []
+    clientAnswersArray = [];
+    // initialize selected questions array to []
+    selectedQuestionsArray = [];
     // display highscore
     let highScore = JSON.parse(localStorage.getItem("quizzer_user_highscore"));
     var scoresArray = Object.values(highScore);
@@ -131,15 +236,6 @@ const validateNewUser = () => {
 
   document.querySelector("#displayScore").textContent = 0;
 };
-
-const formSubmit = e => {
-  e.preventDefault();
-  displayScore(getScore(getClientAnswers()));
-  // console.log(localStorage);
-};
-
-var btn = document.querySelector("#submitBtn");
-btn.addEventListener("click", formSubmit);
 
 // section to display scores in tabs on new page
 
@@ -179,100 +275,24 @@ returnScores();
 const switchPage = () => {
   const quizPage = document.querySelector("#quizPage");
   const scorePage = document.querySelector("#scoresPage");
+  const enterQuestionsPage = document.querySelector("#enter-questionPage");
 
   //switchPages
   if (quizPage.style.display === "block") {
     quizPage.style.display = "none";
     scorePage.style.display = "block";
+    enterQuestionsPage.style.display = "none";
     document.querySelector(".Next").textContent = "Show Quiz";
   } else {
     quizPage.style.display = "block";
     scorePage.style.display = "none";
+    enterQuestionsPage.style.display = "none";
     document.querySelector(".Next").textContent = "Show Scores";
   }
 };
 
-// Store all questions in array object
-
-const questions = [
-  {
-    title: "What is the capital of Nigeria?",
-    options: ["FCT", "Lagos", "Rivers", "Kano"],
-    answer: "FCT"
-  },
-  {
-    title: "What continent is Nicaragua on?",
-    options: ["America", "Africa", "Australia", "Europe"],
-    answer: "America"
-  },
-  {
-    title: "Who was the first black woman to fly solo across the atlantic?",
-    options: [
-      "Rosa Parks",
-      "Kimberly Anyandike",
-      "Angelique Kidjo",
-      "Jennifer Lopez"
-    ],
-    answer: "Kimberly Anyandike"
-  },
-  {
-    title: "What is a Macaw?",
-    options: [
-      "A bird",
-      "A monkey",
-      "A 19th century slave",
-      "A native of Maldives"
-    ],
-    answer: "A bird"
-  },
-  {
-    title: "What are tectonic plates?",
-    options: [
-      "Earth crust",
-      "Fancy china plates",
-      "Reverb plates",
-      "None of the above"
-    ],
-    answer: "Earth crust"
-  },
-  {
-    title: "What is a falcons dive speed?",
-    options: ["220mph", "230mph", "240mph", "250mph"],
-    answer: "220mph"
-  },
-  {
-    title: "What class of food is rice?",
-    options: ["Carbohydrate", "Protein", "Minerals", "Vitamins"],
-    answer: "Carbohydrate"
-  },
-  {
-    title: "Who is Kurupt?",
-    options: [
-      "A rapper",
-      "A politician",
-      "A software developer",
-      "A footballer"
-    ],
-    answer: "A rapper"
-  },
-  {
-    title: "Where did Mansa Musa rule?",
-    options: ["Mali", "Gabon", "Ethiopia", "Luxemburg"],
-    answer: "Mali"
-  },
-  {
-    title: "Who is the Awujale",
-    options: [
-      "King of Benin",
-      "King of Egbaland",
-      "King of Ife",
-      "Sultan of Sokoto"
-    ],
-    answer: "King of Egbaland"
-  }
-];
-
-const numberOfQuestions = 4;
+const numberOfQuestions = 11;
+const questionsFetched = JSON.parse(localStorage.getItem("quizzer_questions"));
 
 const questionsBag = [];
 //select 10 random questions
@@ -280,7 +300,7 @@ const getQuestions = () => {
   const questionNumbersArray = [];
   //get random questions indices
   while (questionNumbersArray.length < numberOfQuestions) {
-    let randomIndex = Math.floor(Math.random() * 10);
+    let randomIndex = Math.floor(Math.random() * questionsFetched.length);
     if (questionNumbersArray.indexOf(randomIndex) > -1) {
       //do nothing
     } else {
@@ -290,7 +310,7 @@ const getQuestions = () => {
 
   //select questions that match random indices
   for (let i = 0; i < questionNumbersArray.length; i++) {
-    questionsBag.push(questions[questionNumbersArray[i]]);
+    questionsBag.push(questionsFetched[questionNumbersArray[i]]);
   }
 };
 
@@ -299,7 +319,6 @@ const getQuestions = () => {
 const selectQuestion = (questionsBag, i) => {
   let selectedQuestions = [];
   selectedQuestions.push(questionsBag[i]);
-  console.log(selectedQuestions);
   return selectedQuestions;
 };
 
@@ -312,6 +331,8 @@ const cycle = () => {
   const nextBtn = document.querySelector(".nextQuestion");
 
   prevBtn.addEventListener("click", e => {
+    clientAnswersArray.pop();
+    console.log(clientAnswersArray);
     if (i < 0) {
       e.preventDefault();
       return;
@@ -322,6 +343,16 @@ const cycle = () => {
     }
   });
   nextBtn.addEventListener("click", e => {
+    e.preventDefault();
+
+    //record the selected radio button
+    const radios = document.querySelectorAll("li");
+    for (let i = 0; i < radios.length; i++) {
+      if (radios[i].childNodes[1].checked) {
+        clientAnswersArray.push(radios[i].childNodes[3].innerHTML);
+      }
+    }
+    console.log(clientAnswersArray);
     if (i >= numberOfQuestions) {
       e.preventDefault();
       return;
@@ -344,30 +375,120 @@ const nextQuestion = selectedQuestion => {
             <div class="options">
               <ul>
                 <li>
-                  <input type="radio" name="Q8" class="Options" />
-                  <label for="Q8">${question.options[0]}</label>
+                  <input type="radio" name="Q${question.id}" class="Options" />
+                  <label for="Q${question.id}">${question.options[0]}</label>
                 </li>
                 <li>
-                  <input type="radio" name="Q8" class="Options" />
-                  <label for="Q8">${question.options[1]}</label>
+                  <input type="radio" name="Q${question.id}" class="Options" />
+                  <label for="Q${question.id}">${question.options[1]}</label>
                 </li>
                 <li>
-                  <input type="radio" name="Q8" class="Options" />
-                  <label for="Q8">${question.options[2]}</label>
+                  <input type="radio" name="Q${question.id}" class="Options" />
+                  <label for="Q${question.id}">${question.options[2]}</label>
                 </li>
                 <li>
-                  <input type="radio" name="Q8" class="Options" />
-                  <label for="Q8">${question.options[3]}</label>
+                  <input type="radio" name="Q${question.id}" class="Options" />
+                  <label for="Q${question.id}">${question.options[3]}</label>
                 </li>
               </ul>
             </div>`;
   });
+
   formItem.innerHTML = questionDivs;
 };
 
+// Add new question to the questions list
+
+//function to switch to "Add Questions" page
+const openQuestionsPage = () => {
+  const quizPage = document.querySelector("#quizPage");
+  const scorePage = document.querySelector("#scoresPage");
+  const enterQuestionsPage = document.querySelector("#enter-questionPage");
+  //switchPages
+  if (enterQuestionsPage.style.display === "none") {
+    quizPage.style.display = "none";
+    scorePage.style.display = "none";
+    enterQuestionsPage.style.display = "block";
+    document.querySelector(".Next").textContent = "Show Quiz";
+  } else {
+    enterQuestionsPage.style.display = "none";
+    quizPage.style.display = "block";
+    scorePage.style.display = "none";
+    document.querySelector(".Next").textContent = "Show Scores";
+  }
+};
+
+//function to get the value of textarea
+let textAreaText = "";
+const getText = e => {
+  textAreaText = e.target.value;
+  // console.log(textAreaText);
+  return textAreaText;
+};
+
+document.getElementById("question-box").addEventListener("blur", getText);
+s;
+
+const submitQuestion = e => {
+  e.preventDefault();
+  const blur = new Event("blur");
+  document.getElementById("question-box").dispatchEvent(blur);
+  //get the input of the user
+  const questionOptions = document.querySelectorAll(".newQuestionOptions");
+  let questionBody;
+  let questionObj = {};
+
+  //retrieve questions array from Localstorage
+  let newQuestionsFetched = JSON.parse(
+    localStorage.getItem("quizzer_questions")
+  ).questions;
+
+  //get the input value of the question box
+  const questionTitle = textAreaText;
+
+  //get options and correct answer
+  const optionsArray = [];
+  const correctAnswer = "";
+  const options = document.querySelectorAll(".newQuestionOptions");
+
+  questionObj["title"] = questionTitle;
+  for (let i = 0; i < options.length; i++) {
+    optionsArray.push(options[i].childNodes[3].value);
+    questionObj["options"] = optionsArray;
+    if (options[i].childNodes[1].checked) {
+      questionObj["answer"] = options[i].childNodes[3].value;
+    }
+  }
+  newQuestionsFetched.push(questionObj);
+  localStorage.setItem(
+    "quizzer_questions",
+    JSON.stringify(newQuestionsFetched)
+  );
+  console.log(localStorage);
+
+  // const newQuestion = questionBox.
+};
+
+let submitQtnBtn = document.querySelector("#submitQuestion");
+submitQtnBtn.addEventListener("click", submitQuestion);
+
+// handle quiz submissions, question cycle and scoring
 const run = () => {
   getQuestions();
   nextQuestion(selectQuestion(questionsBag, cycle()));
 };
+const formSubmit = e => {
+  e.preventDefault();
+  if (clientAnswersArray.length < 1) {
+    console.log(
+      "You must answer a question first. If an option has been selected, press the next button to proceed"
+    );
+  }
+  displayScore(getScore(clientAnswersArray));
+  clientAnswersArray = [];
+  // console.log(localStorage);
+};
+var btn = document.querySelector("#submitBtn");
+btn.addEventListener("click", formSubmit);
 
 run();

@@ -13,7 +13,39 @@
         <h1>Welcome to Quizzer</h1>
       </nav>
     </header>
-    <button class="Next" onclick="switchPage()"></button>
+    <button class="next" onclick="switchPage()"></button>
+    <button class="enter-question" onclick="openQuestionsPage()">
+      Add new question
+    </button>
+    <section id="enter-questionPage">
+      <form action="">
+        <textarea type="text" wrap="soft" id="question-box" placeholder="Enter your question here and select the radio-button corresponding to the correct answer"></textarea>>
+        <div class="options">
+          <ul>
+            <li class="newQuestionOptions">
+              <input type="radio" class="Options" />
+              <input type="text" class="optionText"></input>
+            </li>
+            <li class="newQuestionOptions">
+              <input type="radio" class="Options" />
+              <input type="text" class="optionText"></input>
+            </li>
+            <li class="newQuestionOptions">
+              <input type="radio" class="Options" />
+              <input type="text" class="optionText"></input>
+            </li>
+            <li class="newQuestionOptions">
+              <input type="radio" class="Options" />
+              <input type="text" class="optionText"></input>
+            </li>
+          </ul>
+        </div>
+        <button type="submit" id="submitQuestion">
+          Submit
+        </button>
+      </form>
+    </section>
+
     <section id="quizPage">
       <div class="currentScore">
         Your score: <br />
@@ -23,8 +55,8 @@
         Your Highscore: <br />
         <span id="displayHighScore">0</span>
       </div>
-      <div class="Questions-container">
-        <form action="">
+      <div class="questions-container">
+        <form action="" id="s">
           <div class="card"></div>
           <button class="nextQuestion">Next</button>
           <button class="prevQuestion">Prev</button>
