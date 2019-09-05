@@ -229,7 +229,8 @@ const validateNewUser = () => {
 
 const returnScores = () => {
   const scorePage = document.querySelector("#scoresPage");
-  const scores = JSON.parse(localStorage.getItem("quizzer_user_highscore"));
+  const scores =
+    JSON.parse(localStorage.getItem("quizzer_user_highscore")) || {};
   for (let i = 0; i < Object.keys(scores).length; i++) {
     //create scoretab div
     if (scorePage) {
@@ -278,11 +279,12 @@ const switchPage = () => {
 };
 
 const numberOfQuestions = 4;
-const questionsFetched = JSON.parse(localStorage.getItem("quizzer_questions"))
-  .questions;
 const questionsBag = [];
 //select 10 random questions
 const getQuestions = () => {
+  validateNewUser();
+  const questionsFetched = JSON.parse(localStorage.getItem("quizzer_questions"))
+    .questions;
   const questionNumbersArray = [];
   //get random questions indices
   while (questionNumbersArray.length < numberOfQuestions) {
@@ -333,20 +335,22 @@ const cycle = () => {
 
     //record the selected radio button
     const radios = document.querySelectorAll("li");
-    for (let i = 0; i < radios.length; i++) {
-      if (radios[i].childNodes[1].checked) {
-        clientAnswersArray.push(radios[i].childNodes[3].innerHTML);
-      }
-    }
-    console.log(clientAnswersArray);
     if (i >= numberOfQuestions) {
       e.preventDefault();
       return;
     } else {
       e.preventDefault();
       i++;
-      nextQuestion(selectQuestion(questionsBag, i));
+
+      //store answer
+      for (let i = 0; i < radios.length; i++) {
+        if (radios[i].childNodes[1].checked) {
+          clientAnswersArray.push(radios[i].childNodes[3].innerHTML);
+        }
+      }
     }
+
+    nextQuestion(selectQuestion(questionsBag, i));
   });
   return i;
 };
